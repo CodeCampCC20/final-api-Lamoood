@@ -27,7 +27,7 @@ export const registerDoctor = async (req, res, next) => {
                 }
             })
 
-            res.json({message: `Register ${result.username} Success`})
+            res.json({message: `Register doctor Successfully`})
     } catch (error) {
         next(error)
     }
