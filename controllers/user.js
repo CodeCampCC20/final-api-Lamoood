@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 
 export const registerUser = async (req, res, next) => {
     try {
-        const {username, password, confirmPassword, specialization} = req.body
+        const {username, password, confirmPassword} = req.body
 
         const user = await prisma.user.findFirst({
             where: {
@@ -22,8 +22,7 @@ export const registerUser = async (req, res, next) => {
             const result = await prisma.user.create({
                 data:{
                     username: username,
-                    password: hashPassword,
-                    specialization: specialization
+                    password: hashPassword
                 }
             })
 
@@ -33,33 +32,33 @@ export const registerUser = async (req, res, next) => {
     }
 }
 
-export const loginDoctor = async (req, res, next) => {
+export const loginUser = async (req, res, next) => {
     try {
         const {username, password } = req.body
 
-        const doctor = await prisma.doctor.findFirst({
+        const user = await prisma.user.findFirst({
             where: {
                 username: username
             }
         })
 
-        if (!doctor) {
+        if (!user) {
                 createError(400, "This Username is invalid!")
             }
             
-            const checkPassword = bcrypt.compareSync(password, doctor.password)
+            const checkPassword = bcrypt.compareSync(password, user.password)
 
             if (!checkPassword) {
                 createError(400, "Password is invalid!")
             }
 
             const payload = {
-                id: doctor.id
+                id: user.id
             }
 
             const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d"})
             res.json({
-                message: `Welcome Back, ${doctor.username}`,
+                message: `Welcome Back, ${user.username}`,
                 payload: payload,
                 token: token})
     } catch (error) {
@@ -67,16 +66,16 @@ export const loginDoctor = async (req, res, next) => {
     }
 }
 
-export const listDoctors = async (req, res, next) => {
-  try {
-    const doctor = await prisma.doctor.findMany({
-      omit: {
-        password: true,
-      },
-    });
+// // export const listDoctors = async (req, res, next) => {
+// //   try {
+// //     const doctor = await prisma.doctor.findMany({
+// //       omit: {
+// //         password: true,
+// //       },
+// //     });
 
-    res.json({ message: "This is List All Doctors", result: doctor });
-  } catch (error) {
-    next(error);
-  }
-};
+// //     res.json({ message: "This is List All Doctors", result: doctor });
+// //   } catch (error) {
+// //     next(error);
+// //   }
+// // };

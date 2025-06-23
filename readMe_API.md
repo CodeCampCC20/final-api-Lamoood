@@ -8,9 +8,9 @@
 | ------------------ | ---------------------------- | --------------------------------- | ------ | ------------------ |
 | **Authentication** |                              |                                   |        |                    |
 | [x] POST           | `/auth/register/doctor`      | ลงทะเบียนแพทย์                    | Public | 10                 |
-| [] POST            | `/auth/register/user`        | ลงทะเบียนผู้ป่วย                  | Public | 10                 |
-| [] POST            | `/auth/login/user`           | เข้าสู่ระบบผู้ป่วย                | Public | 10                 |
-| [] POST            | `/auth/login/doctor`         | เข้าสู่ระบบแพทย์                  | Public | 10                 |
+| [x] POST            | `/auth/register/user`        | ลงทะเบียนผู้ป่วย                  | Public | 10                 |
+| [x] POST            | `/auth/login/user`           | เข้าสู่ระบบผู้ป่วย                | Public | 10                 |
+| [x] POST            | `/auth/login/doctor`         | เข้าสู่ระบบแพทย์                  | Public | 10                 |
 | **Users**          |                              |                                   |        |
 | [] GET             | `/users/me`                  | ดูข้อมูลตัวเอง                    | User   | 10                 |
 | [] PATCH           | `/users/me`                  | แก้ไขข้อมูลตัวเอง                 | User   | 5+2 (authenticate) |
@@ -39,7 +39,7 @@ Error Middleware 5 Marks
 
 NotFound Middleware 5 Marks
 
-Prisma Schema 20 Marks
+[x] Prisma Schema 20 Marks 
 
 ## 📝 Notes
 
